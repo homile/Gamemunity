@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Heading from "./components/Heading";
+import List from "./components/List";
+import Upload from "./components/Upload";
+
+export interface Props {
+  contentList: string[];
+  setContentList: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
 function App() {
+  const [contentList, setContentList] = useState<string[]>([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Heading />
+      <Routes>
+        <Route path="/list" element={<List contentList={contentList} setContentList={setContentList} />}></Route>
+        <Route path="/upload" element={<Upload contentList={contentList} setContentList={setContentList} />}></Route>
+      </Routes>
+    </>
   );
 }
 

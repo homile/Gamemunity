@@ -6,13 +6,13 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 5001;
 
-// mongodb+srv://admin:ghalf1234@cluster0.ee48oao.mongodb.net/?retryWrites=true&w=majority
-
 // static으로 활용할 폴더 설정
 app.use(express.static(path.join(__dirname, "../client/build")));
 // body에 담긴 내용을 볼 수 있게 해줌
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const { Post } = require("./Model/Post.js");
 
 // server 실행
 app.listen(port, () => {
@@ -37,6 +37,12 @@ app.get("*", (req, res) => {
 });
 
 app.post("/api/test", (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ success: true, text: "안녕하세요" });
+  const CommunityPost = new Post({ title: "test", content: "테스트입니다." });
+  CommunityPost.save()
+    .then(() => {
+      res.status(200).json({ success: true, text: "안녕하세요" });
+    })
+    .catch((err) => {
+      console.log(`에러${err}`);
+    });
 });

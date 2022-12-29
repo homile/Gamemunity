@@ -1,16 +1,38 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Props } from "../App";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../style/UploadCSS";
 
 const Upload = (props: Props) => {
-  const { contentList, setContentList } = props;
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const onSubmit = () => {
-    let tempArr: string[] = [...contentList];
-    tempArr.push(content);
-    setContentList([...tempArr]);
-    setContent("");
+  const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    if (title === "" || content === "") {
+      return alert("모든 항목을 채워주세요!");
+    }
+
+    let body = {
+      title: title,
+      content: content,
+    };
+    axios
+      .post("/api/post/submit", body)
+      .then((res) => {
+        if (res.data.success) {
+          alert("글 작성이 완료되었습니다.");
+          navigate("/");
+        } else {
+          alert("글 장성에 실패하였습니다.");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -20,9 +42,9 @@ const Upload = (props: Props) => {
         <input
           id="title"
           type="text"
-          value={content}
+          value={title}
           onChange={(event) => {
-            setContent(event.currentTarget.value);
+            setTitle(event.currentTarget.value);
           }}
         />
         <label htmlFor="content">내용</label>
@@ -35,8 +57,8 @@ const Upload = (props: Props) => {
         />
         <UploadButtonDiv>
           <button
-            onClick={() => {
-              onSubmit();
+            onClick={(event) => {
+              onSubmit(event);
             }}
           >
             제출

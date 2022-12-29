@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Props } from "../App";
+import { Props } from "../../App";
 
 const List = (props: Props) => {
   const { contentList } = props;

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Heading from "./components/Heading";
-import List from "./components/List";
-import Upload from "./components/Upload";
+import List from "./components/post/List";
+import Upload from "./components/post/Upload";
 
 export interface Props {
   contentList: string[];

@@ -10,6 +10,9 @@ const port = 5001;
 
 // static으로 활용할 폴더 설정
 app.use(express.static(path.join(__dirname, "../client/build")));
+// body에 담긴 내용을 볼 수 있게 해줌
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // server 실행
 app.listen(port, () => {
@@ -31,4 +34,9 @@ app.get("/", (req, res) => {
 // 모든 url에서 반응
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
+app.post("/api/test", (req, res) => {
+  console.log(req.body);
+  res.status(200).json({ success: true, text: "안녕하세요" });
 });

@@ -36,13 +36,15 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-app.post("/api/test", (req, res) => {
-  const CommunityPost = new Post({ title: "test", content: "테스트입니다." });
+app.post("/api/post/submit", (req, res) => {
+  let temp = req.body;
+  console.log(temp);
+  const CommunityPost = new Post(temp);
   CommunityPost.save()
     .then(() => {
-      res.status(200).json({ success: true, text: "안녕하세요" });
+      res.status(200).json({ success: true });
     })
     .catch((err) => {
-      console.log(`에러${err}`);
+      res.status(400).json({ success: false });
     });
 });

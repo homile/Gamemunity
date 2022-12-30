@@ -5,6 +5,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
 const port = 5001;
+const config = require("./config/key.js");
 
 // static으로 활용할 폴더 설정
 app.use(express.static(path.join(__dirname, "../client/build")));
@@ -17,7 +18,7 @@ const { Post } = require("./Model/Post.js");
 // server 실행
 app.listen(port, () => {
   mongoose
-    .connect("")
+    .connect(config.mongoURI)
     .then(() => {
       console.log(`Example app listening on port ${port}`);
       console.log("Connecting MongoDB...");

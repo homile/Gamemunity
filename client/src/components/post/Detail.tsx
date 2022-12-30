@@ -39,7 +39,7 @@ const Detail = () => {
         <p>{postInfo.content}</p>
       </Post>
       <BtnDiv>
-        <Link to="">
+        <Link to={`/edit/${postInfo.postNum}`}>
           <button className="edit">수정</button>
         </Link>
         <Link to="">

@@ -89,10 +89,18 @@ const Edit = () => {
         <UploadButtonDiv>
           <button
             onClick={(event) => {
+              event.preventDefault();
+              navigate(-1);
+            }}
+          >
+            취소
+          </button>
+          <button
+            onClick={(event) => {
               onSubmit(event);
             }}
           >
-            제출
+            수정
           </button>
         </UploadButtonDiv>
       </UploadForm>

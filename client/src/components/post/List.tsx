@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Props } from "../../App";
 import { ListDiv, ListItem } from "../../style/ListCSS";
+import { Link } from "react-router-dom";
 
 interface PostListType {
   id: string;
   title: string;
   content: string;
+  postNum: number;
 }
 
 const List = (props: Props) => {
@@ -25,11 +27,13 @@ const List = (props: Props) => {
 
   return (
     <ListDiv>
-      {postList.map((content, idx) => {
+      {postList.map((post, idx) => {
         return (
-          <ListItem key={idx} style={{ width: "100%", marginLeft: "1rem" }}>
-            <p className="title">{content.title}</p>
-            <p>{content.content}</p>
+          <ListItem key={idx}>
+            <Link to={`/post/${post.postNum}`}>
+              <p className="title">{post.title}</p>
+              <p>{post.content}</p>
+            </Link>
           </ListItem>
         );
       })}

@@ -8,13 +8,14 @@ interface PostInfoType {
   title: string;
   content: string;
   postNum: number | null;
+  image: string;
 }
 
 const Detail = () => {
   let params = useParams();
   const navigate = useNavigate();
 
-  const [postInfo, setPostInfo] = useState<PostInfoType>({ id: "", title: "", content: "", postNum: null });
+  const [postInfo, setPostInfo] = useState<PostInfoType>({ id: "", title: "", content: "", postNum: null, image: "" });
 
   useEffect(() => {
     let body = {
@@ -57,6 +58,7 @@ const Detail = () => {
     <PostDiv>
       <Post>
         <h1>{postInfo.title}</h1>
+        {postInfo.image ? <img src={postInfo.image} style={{ width: "100%", height: "auto" }} /> : null}
         <p>{postInfo.content}</p>
       </Post>
       <BtnDiv>

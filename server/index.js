@@ -9,10 +9,11 @@ const config = require("./config/key.js");
 
 // static으로 활용할 폴더 설정
 app.use(express.static(path.join(__dirname, "../client/build")));
+// 이미지 사용할 수 있게 설정
+app.use("/image", express.static("./image"));
 // body에 담긴 내용을 볼 수 있게 해줌
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api/post", require("./Router/post.js"));
 
 // server 실행

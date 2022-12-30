@@ -96,3 +96,15 @@ app.post("/api/post/edit", (req, res) => {
       res.status(400).json({ success: false });
     });
 });
+
+// 게시글 삭제
+app.post("/api/post/delete", (req, res) => {
+  Post.deleteOne({ postNum: Number(req.body.postNum) })
+    .exec()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});

@@ -38,6 +38,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
+// 게시글 작성
 app.post("/api/post/submit", (req, res) => {
   let temp = req.body;
   Counter.findOne({ name: "counter" })
@@ -56,11 +57,24 @@ app.post("/api/post/submit", (req, res) => {
     });
 });
 
+// 게시글 리스트 보기
 app.post("/api/post/list", (req, res) => {
   Post.find()
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});
+
+// 게시글 상세보기
+app.post("/api/post/detail", (req, res) => {
+  Post.findOne({ postNum: Number(req.body.postNum) })
+    .exec()
+    .then((doc) => {
+      res.status(200).json({ success: true, post: doc });
     })
     .catch((err) => {
       res.status(400).json({ success: false });

@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Props } from "../../App";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../../style/UploadCSS";
 
-const Upload = (props: Props) => {
+const Upload = () => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");

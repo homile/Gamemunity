@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Props } from "../../App";
 import { ListDiv, ListItem } from "../../style/ListCSS";
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,7 @@ interface PostListType {
   postNum: number;
 }
 
-const List = (props: Props) => {
+const List = () => {
   const [postList, setPostList] = useState<PostListType[]>([]);
 
   useEffect(() => {

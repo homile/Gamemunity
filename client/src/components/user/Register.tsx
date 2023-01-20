@@ -1,12 +1,16 @@
 import { useState } from "react";
 import LoginDiv from "../../style/UserCSS";
 import firebase from "../../firebase";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWComfirm] = useState("");
+
+  const navigate = useNavigate();
 
   const RegistrtFunc = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -23,6 +27,18 @@ const Register = () => {
     });
 
     console.log(createdUser.user);
+    let body = {
+      email: createdUser.user?.multiFactor.user.email,
+      displayName: createdUser.user?.multiFactor.user.displayName,
+      uid: createdUser.user?.multiFactor.user.uid,
+    };
+    axios.post("/api/user/register", body).then((res) => {
+      if (res.data.success) {
+        navigate("/login");
+      } else {
+        return alert("회원가입이 실패하였습니다.");
+      }
+    });
   };
 
   return (

@@ -15,6 +15,7 @@ app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/post", require("./Router/post.js"));
+app.use("/api/user", require("./Router/user.js"));
 
 // server 실행
 app.listen(port, () => {

@@ -22,15 +22,15 @@ const Register = () => {
     }
     let createdUser = await firebase.auth().createUserWithEmailAndPassword(email, PW);
 
-    await createdUser.user?.updateProfile({
+    await createdUser?.user?.updateProfile({
       displayName: nickName,
     });
 
-    console.log(createdUser.user);
-    let body = {
-      email: createdUser.user?.multiFactor.user.email,
-      displayName: createdUser.user?.multiFactor.user.displayName,
-      uid: createdUser.user?.multiFactor.user.uid,
+    // console.log(createdUser.user?.multiFactor.user);
+    const body = {
+      email: createdUser?.user?.multiFactor.user.email,
+      displayName: createdUser?.user?.multiFactor.user.displayName,
+      uid: createdUser?.user?.multiFactor.user.uid,
     };
     axios.post("/api/user/register", body).then((res) => {
       if (res.data.success) {

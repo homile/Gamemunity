@@ -9,11 +9,13 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWComfirm] = useState("");
+  const [flag, setFlag] = useState(false);
 
   const navigate = useNavigate();
 
   const RegistrtFunc = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setFlag(true);
     if (!(nickName && email && PW && PWConfirm)) {
       return alert("모든 값을 채워주세요!");
     }
@@ -26,13 +28,13 @@ const Register = () => {
       displayName: nickName,
     });
 
-    // console.log(createdUser.user?.multiFactor.user);
     const body = {
       email: createdUser?.user?.multiFactor.user.email,
       displayName: createdUser?.user?.multiFactor.user.displayName,
       uid: createdUser?.user?.multiFactor.user.uid,
     };
     axios.post("/api/user/register", body).then((res) => {
+      setFlag(false);
       if (res.data.success) {
         navigate("/login");
       } else {
@@ -47,9 +49,9 @@ const Register = () => {
         <label htmlFor="nick-name">닉네임</label>
         <input id="nick-name" type="name" value={nickName} onChange={(e) => setNickName(e.currentTarget.value)} />
         <label htmlFor="email">이메일</label>
-        <input id="email" type="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+        <input id="email" type="email" value={email} minLength={8} onChange={(e) => setEmail(e.currentTarget.value)} />
         <label htmlFor="password">비밀번호</label>
-        <input id="password" type="password" value={PW} onChange={(e) => setPW(e.currentTarget.value)} />
+        <input id="password" type="password" value={PW} minLength={8} onChange={(e) => setPW(e.currentTarget.value)} />
         <label htmlFor="password-check">비밀번호확인</label>
         <input
           id="password-check"
@@ -57,7 +59,9 @@ const Register = () => {
           value={PWConfirm}
           onChange={(e) => setPWComfirm(e.currentTarget.value)}
         />
-        <button onClick={(e) => RegistrtFunc(e)}>회원가입</button>
+        <button disabled={flag} onClick={(e) => RegistrtFunc(e)}>
+          회원가입
+        </button>
       </form>
     </LoginDiv>
   );

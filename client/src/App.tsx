@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Heading from "./components/Heading";
@@ -8,8 +9,23 @@ import Edit from "./components/post/Edit";
 
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
+import { useDispatch } from "react-redux";
+import { clearUser, loginUser } from "./Reducer/userSlice";
+import firebase from "./firebase";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      if (userInfo !== null) {
+        dispatch(loginUser(userInfo.multiFactor.user));
+      } else {
+        dispatch(clearUser());
+      }
+    });
+  }, []);
+
   return (
     <>
       <Heading />

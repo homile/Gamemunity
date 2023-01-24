@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../Reducer/store";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../../style/UploadCSS";
 import ImageUpload from "./ImageUpload";
 
 const Upload = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -21,6 +24,7 @@ const Upload = () => {
       title: title,
       content: content,
       image: image,
+      uid: user.uid,
     };
     axios
       .post("/api/post/submit", body)
@@ -36,6 +40,13 @@ const Upload = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (!user.accessToken) {
+      alert("로그인한 회원만 글을 작성할 수 있습니다.");
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <UploadDiv>

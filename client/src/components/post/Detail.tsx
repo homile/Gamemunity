@@ -1,7 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { RootState } from "../../Reducer/store";
 import { BtnDiv, Post, PostDiv } from "../../style/PostDetailCSS";
+
+interface AuthorType {
+  displayName: string;
+  uid?: string;
+}
 
 interface PostInfoType {
   id: string;
@@ -9,13 +16,22 @@ interface PostInfoType {
   content: string;
   postNum: number | null;
   image: string;
+  author: AuthorType;
 }
 
 const Detail = () => {
   let params = useParams();
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
 
-  const [postInfo, setPostInfo] = useState<PostInfoType>({ id: "", title: "", content: "", postNum: null, image: "" });
+  const [postInfo, setPostInfo] = useState<PostInfoType>({
+    id: "",
+    title: "",
+    content: "",
+    postNum: null,
+    image: "",
+    author: { displayName: "", uid: "" },
+  });
 
   useEffect(() => {
     let body = {
@@ -58,17 +74,20 @@ const Detail = () => {
     <PostDiv>
       <Post>
         <h1>{postInfo.title}</h1>
+        <h3>{postInfo.author.displayName}</h3>
         {postInfo.image ? <img src={postInfo.image} style={{ width: "100%", height: "auto" }} /> : null}
         <p>{postInfo.content}</p>
       </Post>
-      <BtnDiv>
-        <Link to={`/edit/${postInfo.postNum}`}>
-          <button className="edit">수정</button>
-        </Link>
-        <button className="delete" onClick={() => DeleteHandler()}>
-          삭제
-        </button>
-      </BtnDiv>
+      {user.uid === postInfo.author.uid && (
+        <BtnDiv>
+          <Link to={`/edit/${postInfo.postNum}`}>
+            <button className="edit">수정</button>
+          </Link>
+          <button className="delete" onClick={() => DeleteHandler()}>
+            삭제
+          </button>
+        </BtnDiv>
+      )}
     </PostDiv>
   );
 };

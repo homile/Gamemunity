@@ -4,7 +4,7 @@ const iserSchema = new mongoose.Schema(
   {
     userNum: Number,
     email: String,
-    diplayName: String,
+    displayName: String,
     uid: String,
   },
   { collection: "users" }

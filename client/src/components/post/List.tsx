@@ -33,7 +33,6 @@ const List = () => {
   return (
     <ListDiv>
       {postList.map((post, idx) => {
-        console.log(post.author)
         return (
           <ListItem key={idx}>
             <Link to={`/post/${post.postNum}`}>

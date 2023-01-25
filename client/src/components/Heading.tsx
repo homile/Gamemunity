@@ -10,6 +10,7 @@ const Heading = () => {
   const navigate = useNavigate();
 
   const logoutHandle = () => {
+    console.log(user)
     firebase.auth().signOut();
     dispatch(clearUser);
     navigate("/");
@@ -26,7 +27,7 @@ const Heading = () => {
         {!user.accessToken ? (
           <Link to="/login">Login</Link>
         ) : (
-          <Link to="/login" onClick={logoutHandle}>
+          <Link to="/" onClick={() => logoutHandle()}>
             Logout
           </Link>
         )}

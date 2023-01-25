@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginDiv from "../../style/UserCSS";
 
 import firebase from "../../firebase";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Reducer/store";
 
 type ErrorType = {
   code: string;
@@ -10,6 +12,7 @@ type ErrorType = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
   const [email, setEmail] = useState("");
   const [PW, setPW] = useState("");
 
@@ -33,6 +36,13 @@ const Login = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (user.accessToken) {
+      alert("로그인 하지 않은 회원만 접근할 수 있습니다.");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <LoginDiv>

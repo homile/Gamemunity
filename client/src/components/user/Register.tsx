@@ -10,6 +10,8 @@ const Register = () => {
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWComfirm] = useState("");
   const [flag, setFlag] = useState(false);
+  const [nameCheck, setNameCheck] = useState(false);
+  const [nameInfo, setNameInfo] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,6 +23,9 @@ const Register = () => {
     }
     if (PW !== PWConfirm) {
       return alert("비밀번호와 비밀번호 확인 값은 같아야 합니다.");
+    }
+    if (!nameCheck) {
+      return alert("닉네임 중복검사를 진행해 주세요.");
     }
     let createdUser = await firebase.auth().createUserWithEmailAndPassword(email, PW);
 
@@ -43,11 +48,34 @@ const Register = () => {
     });
   };
 
+  const nameCheckFunc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!nickName) {
+      return alert("닉네임을 입력해주세요.");
+    }
+
+    let body = {
+      displayName: nickName,
+    };
+    axios.post("/api/user/namecheck", body).then((res) => {
+      if (res.data.success) {
+        if (res.data.check) {
+          setNameCheck(true);
+          setNameInfo("사용가능한 닉네임입니다.");
+        } else {
+          setNameInfo("사용 불가능한 닉네임입니다.");
+        }
+      }
+    });
+  };
+
   return (
     <LoginDiv>
       <form>
         <label htmlFor="nick-name">닉네임</label>
         <input id="nick-name" type="name" value={nickName} onChange={(e) => setNickName(e.currentTarget.value)} />
+        {nameInfo}
+        <button onClick={(e) => nameCheckFunc(e)}>닉네임 중복검사</button>
         <label htmlFor="email">이메일</label>
         <input id="email" type="email" value={email} minLength={8} onChange={(e) => setEmail(e.currentTarget.value)} />
         <label htmlFor="password">비밀번호</label>

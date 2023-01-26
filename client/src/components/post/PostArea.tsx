@@ -10,7 +10,7 @@ interface AuthorType {
 }
 
 interface PostInfoType {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   postNum: number | null;
@@ -46,7 +46,7 @@ const PostArea = () => {
       {flag ? (
         <>
           <Detail postInfo={postInfo} />
-          <RepleArea />
+          <RepleArea postId={postInfo._id} />
         </>
       ) : null}
     </div>

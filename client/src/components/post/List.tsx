@@ -9,7 +9,7 @@ interface AuthorType  {
 }
 
 interface PostListType {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   postNum: number;
@@ -33,6 +33,7 @@ const List = () => {
   return (
     <ListDiv>
       {postList.map((post, idx) => {
+        console.log(post)
         return (
           <ListItem key={idx}>
             <Link to={`/post/${post.postNum}`}>

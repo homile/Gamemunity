@@ -10,7 +10,7 @@ interface AuthorType {
 }
 
 interface PostInfoType {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   postNum: number | null;

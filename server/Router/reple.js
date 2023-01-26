@@ -8,6 +8,7 @@ router.post("/submit", (req, res) => {
   let temp = {
     reple: req.body.reple,
     uid: req.body.uid,
+    postId: req.body.postId,
   };
 
   User.findOne({ uid: req.body.uid })
@@ -18,7 +19,7 @@ router.post("/submit", (req, res) => {
       NewReple.save(() => {
         Post.findOneAndUpdate(
           {
-            id: req.body.postId,
+            _id: req.body.postId,
           },
           {
             $inc: { repleNum: 1 },
@@ -32,6 +33,23 @@ router.post("/submit", (req, res) => {
     })
     .catch((err) => {
       return res.status(400).json({ success: false });
+    });
+});
+
+router.post("/getReple", (req, res) => {
+  Reple.find({ postId: req.body.postId })
+    .populate("author")
+    .exec()
+    .then((repleInfo) => {
+      return res.status(200).json({
+        success: true,
+        repleList: repleInfo,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({
+        success: false,
+      });
     });
 });
 

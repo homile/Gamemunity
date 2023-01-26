@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Reducer/store";
+import { RepleUploadDiv } from "../../style/RepleCSS";
 
 const RepleUpload = ({ postId }: { postId: string }) => {
   const user = useSelector((state: RootState) => state.user);
@@ -22,8 +23,8 @@ const RepleUpload = ({ postId }: { postId: string }) => {
 
     axios.post("/api/reple/submit", body).then((res) => {
       if (res.data.success) {
-        setReple("");
         alert("댓글 작성이 성공하였습니다.");
+        window.location.reload();
       } else {
         alert("댓글 작성에 실패하였습니다.");
       }
@@ -31,7 +32,7 @@ const RepleUpload = ({ postId }: { postId: string }) => {
   };
 
   return (
-    <div>
+    <RepleUploadDiv>
       <form>
         <input
           type="text"
@@ -48,7 +49,7 @@ const RepleUpload = ({ postId }: { postId: string }) => {
           등록
         </button>
       </form>
-    </div>
+    </RepleUploadDiv>
   );
 };
 

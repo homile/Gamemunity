@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../Reducer/store";
@@ -19,36 +18,10 @@ interface PostInfoType {
   author: AuthorType;
 }
 
-const Detail = () => {
+const Detail = ({ postInfo }: { postInfo: PostInfoType }) => {
   let params = useParams();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user);
-
-  const [postInfo, setPostInfo] = useState<PostInfoType>({
-    id: "",
-    title: "",
-    content: "",
-    postNum: null,
-    image: "",
-    author: { displayName: "", uid: "" },
-  });
-
-  useEffect(() => {
-    let body = {
-      postNum: params.postNum,
-    };
-
-    axios
-      .post("/api/post/detail", body)
-      .then((res) => {
-        if (res.data.success) {
-          setPostInfo(res.data.post);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const DeleteHandler = () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {

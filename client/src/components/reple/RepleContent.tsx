@@ -35,6 +35,29 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
     });
   };
 
+  const deleteHandler = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      let body = {
+        postId: reple.postId,
+        repleId: reple._id,
+      };
+
+      axios
+        .post("/api/reple/delete", body)
+        .then((res) => {
+          if (res.data.success) {
+            alert("댓글이 삭제되었습니다.");
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          alert("댓글 삭제에 실패하였습니다.");
+        });
+    }
+  };
+
   return (
     <RepleContentDiv>
       <div className="author">
@@ -52,7 +75,14 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
                 >
                   수정
                 </p>
-                <p className="delete">삭제</p>
+                <p
+                  className="delete"
+                  onClick={(e) => {
+                    deleteHandler(e);
+                  }}
+                >
+                  삭제
+                </p>
               </div>
             )}
           </div>

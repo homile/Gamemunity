@@ -22,7 +22,7 @@ const RepleUploadDiv = styled.div`
       grid-template-rows: 40px;
     }
     input {
-      padding: 10px;
+      padding: 0 10px;
       height: 100%;
       border-radius: 10px 0px 0px 10px;
       border: 0.5px solid #c6c6c6;

@@ -1,7 +1,8 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Reducer/store";
-import { RepleContentDiv } from "../../style/RepleCSS";
+import { RepleContentDiv, RepleUploadDiv } from "../../style/RepleCSS";
 import { RepleListType } from "./RepleList";
 
 const RepleContent = ({ reple }: { reple: RepleListType }) => {
@@ -9,8 +10,30 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
   const ref = useRef(null);
 
   const [ModalFlag, setModalFlag] = useState(false);
+  const [editFlag, setEditFlag] = useState(false);
+  const [editReple, setEditReple] = useState(reple.reple);
 
   useOnClickOutside(ref, () => setModalFlag(false));
+
+  const submitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    let body = {
+      uid: user.uid,
+      reple: editReple,
+      postId: reple.postId,
+      repleId: reple._id,
+    };
+
+    axios.post("/api/reple/edit", body).then((res) => {
+      if (res.data.success) {
+        alert("댓글 수정이 성공하였습니다.");
+      } else {
+        alert("댓글 수정이 실패하였습니다.");
+      }
+      return window.location.reload();
+    });
+  };
 
   return (
     <RepleContentDiv>
@@ -21,14 +44,51 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
             <span onClick={() => setModalFlag(true)}>...</span>
             {ModalFlag && (
               <div className="modalDiv" ref={ref}>
-                <p>수정</p>
+                <p
+                  onClick={() => {
+                    setEditFlag(true);
+                    setModalFlag(false);
+                  }}
+                >
+                  수정
+                </p>
                 <p className="delete">삭제</p>
               </div>
             )}
           </div>
         )}
       </div>
-      <p>{reple.reple}</p>
+      {editFlag ? (
+        <RepleUploadDiv>
+          <form>
+            <input
+              type="text"
+              value={editReple}
+              onChange={(e) => {
+                setEditReple(e.currentTarget.value);
+              }}
+            />
+            <button
+              onClick={(e) => {
+                submitHandler(e);
+              }}
+            >
+              등록
+            </button>
+          </form>
+          <button
+            className="cancel"
+            onClick={(e) => {
+              e.preventDefault();
+              setEditFlag(false);
+            }}
+          >
+            취소
+          </button>
+        </RepleUploadDiv>
+      ) : (
+        <p>{reple.reple}</p>
+      )}
     </RepleContentDiv>
   );
 };

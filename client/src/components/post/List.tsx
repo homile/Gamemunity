@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ListDiv, ListItem } from "../../style/ListCSS";
 import { Link } from "react-router-dom";
+import Avatar from "react-avatar";
 
-interface AuthorType  {
+interface AuthorType {
   displayName: string;
   uid?: string;
+  photoURL: string;
 }
 
 interface PostListType {
@@ -37,7 +39,10 @@ const List = () => {
           <ListItem key={idx}>
             <Link to={`/post/${post.postNum}`}>
               <p className="title">{post.title}</p>
-              <p className="author">{post.author.displayName}</p>
+              <p className="author">
+                <Avatar size="40" round={true} src={post.author.photoURL} />
+                {post.author.displayName}
+              </p>
               <p>{post.content}</p>
             </Link>
           </ListItem>

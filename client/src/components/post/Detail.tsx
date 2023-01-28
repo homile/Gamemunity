@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../Reducer/store";
 import { BtnDiv, Post, PostDiv } from "../../style/PostDetailCSS";
+import Avatar from "react-avatar";
 
 interface AuthorType {
   displayName: string;
   uid?: string;
+  photoURL: string;
 }
 
 interface PostInfoType {
@@ -47,7 +49,10 @@ const Detail = ({ postInfo }: { postInfo: PostInfoType }) => {
     <PostDiv>
       <Post>
         <h1>{postInfo.title}</h1>
-        <h3>{postInfo.author.displayName}</h3>
+        <h3>
+          <Avatar size="40" round={true} src={postInfo.author.photoURL} />
+          {postInfo.author.displayName}
+        </h3>
         {postInfo.image ? <img src={postInfo.image} style={{ width: "100%", height: "auto" }} /> : null}
         <p>{postInfo.content}</p>
       </Post>

@@ -6,6 +6,7 @@ import RepleContent from "./RepleContent";
 export interface AuthorType {
   displayName: string;
   uid?: string;
+  photoURL: string;
 }
 
 export interface RepleListType {

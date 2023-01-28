@@ -7,6 +7,7 @@ import Detail from "./Detail";
 interface AuthorType {
   displayName: string;
   uid?: string;
+  photoURL: string;
 }
 
 interface PostInfoType {

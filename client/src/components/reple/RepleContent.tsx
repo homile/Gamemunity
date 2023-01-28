@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import Avatar from "react-avatar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Reducer/store";
 import { RepleContentDiv, RepleUploadDiv } from "../../style/RepleCSS";
@@ -61,7 +62,9 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
   return (
     <RepleContentDiv>
       <div className="author">
-        <p>{reple.author.displayName}</p>
+        <p>
+        <Avatar size="40" round={true} src={reple.author.photoURL} />
+          {reple.author.displayName}</p>
         {reple.author.uid === user.uid && (
           <div className="modalControl">
             <span onClick={() => setModalFlag(true)}>...</span>

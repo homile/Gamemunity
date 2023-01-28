@@ -34,12 +34,14 @@ const Register = () => {
 
     await createdUser?.user?.updateProfile({
       displayName: nickName,
+      photoURL: "https://kr.object.ncloudstorage.com/gamemunity/user/user_profile.png",
     });
 
     const body = {
       email: createdUser?.user?.multiFactor.user.email,
       displayName: createdUser?.user?.multiFactor.user.displayName,
       uid: createdUser?.user?.multiFactor.user.uid,
+      photoURL: "https://kr.object.ncloudstorage.com/gamemunity/user/user_profile.png",
     };
     axios.post("/api/user/register", body).then((res) => {
       setFlag(false);

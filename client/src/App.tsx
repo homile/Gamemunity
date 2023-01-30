@@ -13,6 +13,7 @@ import { clearUser, loginUser } from "./Reducer/userSlice";
 import firebase from "./firebase";
 import PostArea from "./components/post/PostArea";
 import MyPage from "./components/user/MyPage";
+import MainPage from "./components/MainPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ function App() {
     <>
       <Heading />
       <Routes>
-        <Route path="/" element={<List />}></Route>
+        <Route path="/" element={<MainPage />}></Route>
         <Route path="/upload" element={<Upload />}></Route>
         <Route path="/post/:postNum" element={<PostArea />}></Route>
         <Route path="/edit/:postNum" element={<Edit />}></Route>

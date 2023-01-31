@@ -23,10 +23,12 @@ const sortData = ["최신순", "인기순"];
 const MainPage = () => {
   const [postList, setPostList] = useState<PostListType[]>([]);
   const [sort, setSort] = useState("최신순");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+  const getPostList = () => {
     let body = {
       sort: sort,
+      searchTerm: searchTerm,
     };
 
     axios
@@ -37,6 +39,14 @@ const MainPage = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const searchHandler = () => {
+    getPostList();
+  };
+
+  useEffect(() => {
+    getPostList();
   }, [sort]);
 
   return (
@@ -50,6 +60,14 @@ const MainPage = () => {
           );
         })}
       </select>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.currentTarget.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") searchHandler();
+        }}
+      />
       <List postList={postList} />
     </div>
   );

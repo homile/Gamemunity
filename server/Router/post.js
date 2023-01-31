@@ -44,8 +44,8 @@ router.post("/list", (req, res) => {
   } else {
     sort.repleNum = -1;
   }
-  
-  Post.find()
+
+  Post.find({ $or: [{ title: { $regex: req.body.searchTerm } }, { content: { $regex: req.body.searchTerm } }] })
     .populate("author")
     .sort(sort)
     .exec()

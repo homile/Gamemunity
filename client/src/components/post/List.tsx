@@ -33,7 +33,6 @@ const List = ({ postList }: { postList: PostListType[] }) => {
   return (
     <ListDiv>
       {postList.map((post, idx) => {
-        console.log(post);
         return (
           <ListItem key={idx}>
             <Link to={`/post/${post.postNum}`}>

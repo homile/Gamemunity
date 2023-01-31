@@ -4,22 +4,7 @@ import Avatar from "react-avatar";
 
 import moment from "moment";
 import "moment/locale/ko";
-
-interface AuthorType {
-  displayName: string;
-  uid?: string;
-  photoURL: string;
-}
-
-interface PostListType {
-  _id: string;
-  title: string;
-  content: string;
-  postNum: number;
-  createdAt: Date;
-  updatedAt: Date;
-  author: AuthorType;
-}
+import { PostListType } from "../../types/types";
 
 const List = ({ postList }: { postList: PostListType[] }) => {
   const setTime = (a: Date, b: Date) => {

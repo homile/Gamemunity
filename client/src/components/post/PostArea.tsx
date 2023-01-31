@@ -1,23 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PostInfoType } from "../../types/types";
 import RepleArea from "../reple/RepleArea";
 import Detail from "./Detail";
-
-interface AuthorType {
-  displayName: string;
-  uid?: string;
-  photoURL: string;
-}
-
-interface PostInfoType {
-  _id: string;
-  title: string;
-  content: string;
-  postNum: number | null;
-  image: string;
-  author: AuthorType;
-}
 
 const PostArea = () => {
   let params = useParams();

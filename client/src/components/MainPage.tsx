@@ -1,22 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { PostListType } from "../types/types";
 import List from "./post/List";
-
-interface AuthorType {
-  displayName: string;
-  uid?: string;
-  photoURL: string;
-}
-
-interface PostListType {
-  _id: string;
-  title: string;
-  content: string;
-  postNum: number;
-  createdAt: Date;
-  updatedAt: Date;
-  author: AuthorType;
-}
 
 const sortData = ["최신순", "인기순"];
 

@@ -1,16 +1,12 @@
 import axios from "axios";
 
-interface ImageType {
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const ImageUpload = (props: ImageType) => {
+const ImageUpload = ({ setImage }: { setImage: React.Dispatch<React.SetStateAction<string>> }) => {
   const FileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     let formData: any = new FormData();
     formData.append("file", e.target.files?.[0]);
 
     axios.post("/api/post/image/upload", formData).then((res) => {
-      props.setImage(res.data.filePath);
+      setImage(res.data.filePath);
     });
   };
 

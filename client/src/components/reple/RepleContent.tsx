@@ -4,7 +4,7 @@ import Avatar from "react-avatar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Reducer/store";
 import { RepleContentDiv, RepleUploadDiv } from "../../style/RepleCSS";
-import { RepleListType } from "./RepleList";
+import { RepleListType } from "../../types/types";
 
 const RepleContent = ({ reple }: { reple: RepleListType }) => {
   const user = useSelector((state: RootState) => state.user);
@@ -63,8 +63,9 @@ const RepleContent = ({ reple }: { reple: RepleListType }) => {
     <RepleContentDiv>
       <div className="author">
         <p>
-        <Avatar size="40" round={true} src={reple.author.photoURL} />
-          {reple.author.displayName}</p>
+          <Avatar size="40" round={true} src={reple.author.photoURL} />
+          {reple.author.displayName}
+        </p>
         {reple.author.uid === user.uid && (
           <div className="modalControl">
             <span onClick={() => setModalFlag(true)}>...</span>

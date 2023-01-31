@@ -2,13 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../../style/UploadCSS";
-
-interface PostInfoType {
-  id: string;
-  title: string;
-  content: string;
-  postNum: number | null;
-}
+import { PostEditInfoType } from "../../types/types";
 
 const Edit = () => {
   let params = useParams();
@@ -16,7 +10,7 @@ const Edit = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [postInfo, setPostInfo] = useState<PostInfoType>({ id: "", title: "", content: "", postNum: null });
+  const [postInfo, setPostInfo] = useState<PostEditInfoType>({ id: "", title: "", content: "", postNum: null });
 
   useEffect(() => {
     let body = {

@@ -1,21 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { RepleListDiv } from "../../style/RepleCSS";
+import { RepleListType } from "../../types/types";
 import RepleContent from "./RepleContent";
-
-export interface AuthorType {
-  displayName: string;
-  uid?: string;
-  photoURL: string;
-}
-
-export interface RepleListType {
-  author: AuthorType;
-  content: string;
-  postId: string;
-  reple: string;
-  _id: string;
-}
 
 const RepleList = ({ postId }: { postId: string }) => {
   const [repleList, setRepleList] = useState<RepleListType[]>([]);

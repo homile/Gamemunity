@@ -4,21 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../Reducer/store";
 import { BtnDiv, Post, PostDiv } from "../../style/PostDetailCSS";
 import Avatar from "react-avatar";
-
-interface AuthorType {
-  displayName: string;
-  uid?: string;
-  photoURL: string;
-}
-
-interface PostInfoType {
-  _id: string;
-  title: string;
-  content: string;
-  postNum: number | null;
-  image: string;
-  author: AuthorType;
-}
+import { PostInfoType } from "../../types/types";
 
 const Detail = ({ postInfo }: { postInfo: PostInfoType }) => {
   let params = useParams();

@@ -24,17 +24,53 @@ const MainPage = () => {
   const [postList, setPostList] = useState<PostListType[]>([]);
   const [sort, setSort] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
+  const [skip, setSkip] = useState(0);
+  const [loadMore, setLoadMore] = useState(true);
 
-  const getPostList = () => {
+  const getPostLoadMore = () => {
     let body = {
       sort: sort,
       searchTerm: searchTerm,
+      skip: skip,
     };
 
     axios
       .post("/api/post/list", body)
       .then((res) => {
-        setPostList([...res.data.postList]);
+        if (res.data.success) {
+          setPostList([...postList, ...res.data.postList]);
+          setSkip(res.data.postList.length);
+
+          if (res.data.postList.length < 5) {
+            setLoadMore(false);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getPostList = () => {
+    setSkip(0);
+
+    let body = {
+      sort: sort,
+      searchTerm: searchTerm,
+      skip: 0,
+    };
+
+    axios
+      .post("/api/post/list", body)
+      .then((res) => {
+        if (res.data.success) {
+          setPostList([...res.data.postList]);
+          setSkip(res.data.postList.length);
+
+          if (res.data.postList.length < 5) {
+            setLoadMore(false);
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -69,6 +105,15 @@ const MainPage = () => {
         }}
       />
       <List postList={postList} />
+      {loadMore && (
+        <button
+          onClick={() => {
+            getPostLoadMore();
+          }}
+        >
+          더 불러오기
+        </button>
+      )}
     </div>
   );
 };

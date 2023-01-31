@@ -48,6 +48,8 @@ router.post("/list", (req, res) => {
   Post.find({ $or: [{ title: { $regex: req.body.searchTerm } }, { content: { $regex: req.body.searchTerm } }] })
     .populate("author")
     .sort(sort)
+    .skip(req.body.skip)
+    .limit(5)
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });

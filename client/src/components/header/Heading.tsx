@@ -10,7 +10,6 @@ const Heading = () => {
   const navigate = useNavigate();
 
   const logoutHandle = () => {
-    console.log(user);
     firebase.auth().signOut();
     dispatch(clearUser);
     navigate("/");

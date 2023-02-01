@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { RootState } from "../Reducer/store";
-import firebase from "../firebase";
-import { clearUser } from "../Reducer/userSlice";
+import { RootState } from "../../Reducer/store";
+import firebase from "../../firebase";
+import { clearUser } from "../../Reducer/userSlice";
 
 const Heading = () => {
   const user = useSelector((state: RootState) => state.user);

@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../Reducer/store";
 import firebase from "../../firebase";
 import { clearUser } from "../../Reducer/userSlice";
+import { HeadingList, HeadingNav, HeadingUser, StlyedLink, StyledNavLink } from "./Heading.style";
 
 const Heading = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -16,25 +17,25 @@ const Heading = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-      <Link to="/">Gamemunity</Link>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "50%" }}>
-        <Link to="/">Home</Link>
-        <Link to="/upload">Upload</Link>
-      </div>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+    <HeadingNav>
+      <StlyedLink to="/">Gamemunity</StlyedLink>
+      <HeadingList>
+        <StyledNavLink to="/">Home</StyledNavLink>
+        <StyledNavLink to="/upload">Upload</StyledNavLink>
+      </HeadingList>
+      <HeadingUser>
         {!user.accessToken ? (
-          <Link to="/login">Login</Link>
+          <StlyedLink to="/login">Login</StlyedLink>
         ) : (
           <>
-            <Link to="/" onClick={() => logoutHandle()}>
+            <StlyedLink to="/" onClick={() => logoutHandle()}>
               Logout
-            </Link>
-            <Link to="/MyPage">MyPage</Link>
+            </StlyedLink>
+            <StyledNavLink to="/MyPage">MyPage</StyledNavLink>
           </>
         )}
-      </div>
-    </div>
+      </HeadingUser>
+    </HeadingNav>
   );
 };
 

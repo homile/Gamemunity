@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { PostListType } from "../types/types";
-import List from "./post/List";
+import { PostListType } from "../../types/types";
+import List from "../post/List";
+import { SearchDiv, SearchInput, SortSelect } from "./MainPage.style";
 
 const sortData = ["최신순", "인기순"];
 
@@ -72,23 +73,26 @@ const MainPage = () => {
 
   return (
     <div>
-      <select name="sortList" onChange={(e) => setSort(e.currentTarget.value)}>
-        {sortData.map((sortType) => {
-          return (
-            <option key={sortType} value={sortType}>
-              {sortType}
-            </option>
-          );
-        })}
-      </select>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.currentTarget.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") searchHandler();
-        }}
-      />
+      <SearchDiv>
+        <SortSelect name="sortList" onChange={(e) => setSort(e.currentTarget.value)}>
+          {sortData.map((sortType) => {
+            return (
+              <option key={sortType} value={sortType}>
+                {sortType}
+              </option>
+            );
+          })}
+        </SortSelect>
+        <SearchInput
+          type="text"
+          value={searchTerm}
+          placeholder="검색어를 입력해주세요"
+          onChange={(e) => setSearchTerm(e.currentTarget.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") searchHandler();
+          }}
+        />
+      </SearchDiv>
       <List postList={postList} />
       {loadMore && (
         <button

@@ -12,7 +12,7 @@ import { clearUser, loginUser } from "./Reducer/userSlice";
 import firebase from "./firebase";
 import PostArea from "./components/post/PostArea";
 import MyPage from "./components/user/MyPage";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/main/MainPage";
 
 function App() {
   const dispatch = useDispatch();

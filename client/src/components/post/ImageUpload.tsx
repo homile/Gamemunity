@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ImageUploadDiv, ImageUploadInput } from "../../style/UploadCSS";
 
 const ImageUpload = ({ setImage }: { setImage: React.Dispatch<React.SetStateAction<string>> }) => {
   const FileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,9 +12,10 @@ const ImageUpload = ({ setImage }: { setImage: React.Dispatch<React.SetStateActi
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={(e) => FileUpload(e)} />
-    </div>
+    <ImageUploadDiv>
+      <label htmlFor="image-upload">사진 업로드하기</label>
+      <ImageUploadInput id="image-upload" type="file" accept="image/*" onChange={(e) => FileUpload(e)} />
+    </ImageUploadDiv>
   );
 };
 

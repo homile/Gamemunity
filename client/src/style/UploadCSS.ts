@@ -73,4 +73,36 @@ const UploadButtonDiv = styled.div`
   }
 `;
 
-export { UploadDiv, UploadForm, UploadButtonDiv };
+const ImageUploadDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
+  }
+
+  label {
+    margin: 0;
+  }
+`;
+
+const ImageUploadInput = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+`;
+
+export { UploadDiv, UploadForm, UploadButtonDiv, ImageUploadInput, ImageUploadDiv };

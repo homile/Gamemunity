@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { PostListType } from "../../types/types";
 import List from "../post/List";
-import { SearchDiv, SearchInput, SortSelect } from "./MainPage.style";
+import { ButtonDiv, LoadButton, SearchDiv, SearchInput, SortSelect } from "./MainPage.style";
 
 const sortData = ["최신순", "인기순"];
 
@@ -95,13 +95,15 @@ const MainPage = () => {
       </SearchDiv>
       <List postList={postList} />
       {loadMore && (
-        <button
-          onClick={() => {
-            getPostLoadMore();
-          }}
-        >
-          더 불러오기
-        </button>
+        <ButtonDiv>
+          <LoadButton
+            onClick={() => {
+              getPostLoadMore();
+            }}
+          >
+            더 불러오기
+          </LoadButton>
+        </ButtonDiv>
       )}
     </div>
   );

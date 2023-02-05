@@ -28,4 +28,30 @@ const SearchInput = styled.input`
   max-width: 500px;
 `;
 
-export { SearchDiv, SortSelect, SearchInput };
+const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+const LoadButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
+  }
+`;
+
+export { SearchDiv, SortSelect, SearchInput, ButtonDiv, LoadButton };

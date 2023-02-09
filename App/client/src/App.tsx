@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import Heading from "./components/header/Heading";
 import Upload from "./components/post/Upload";
 import Edit from "./components/post/Edit";

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Reducer/store";
 
+const defaultAvatarURI = "https://kr.object.ncloudstorage.com/gamemunity/user/user_profile.png";
+
 const Register = () => {
   const user = useSelector((state: RootState) => state.user);
   const [nickName, setNickName] = useState("");
@@ -34,14 +36,14 @@ const Register = () => {
 
     await createdUser?.user?.updateProfile({
       displayName: nickName,
-      photoURL: "https://kr.object.ncloudstorage.com/gamemunity/user/user_profile.png",
+      photoURL: defaultAvatarURI,
     });
 
     const body = {
       email: createdUser?.user?.multiFactor.user.email,
       displayName: createdUser?.user?.multiFactor.user.displayName,
       uid: createdUser?.user?.multiFactor.user.uid,
-      photoURL: "https://kr.object.ncloudstorage.com/gamemunity/user/user_profile.png",
+      photoURL: defaultAvatarURI,
     };
     axios.post("/api/user/register", body).then((res) => {
       setFlag(false);
